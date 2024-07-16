@@ -6,31 +6,24 @@ class Solution
 public:
     void sortColors(vector<int> &nums)
     {
-        int snowballSize = 0;
-        int n = nums.size();
-        // Push 1s to the end
-        for (int i = 0; i < n; i++)
+        // dutch paritioning algo
+        int red = 0;
+        int white = 0;
+        int blue = nums.size() - 1;
+        while (white <= blue)
         {
-            if (nums[i] == 1)
-                snowballSize++;
-            else if (snowballSize != 0)
+            if (nums[white] == 0)
             {
-                int t = nums[i];
-                nums[i] = 1;
-                nums[i - snowballSize] = t;
+                swap(nums[white], nums[red]);
+                white++;
+                red++;
             }
-        }
-        // Push 2s to the end
-        snowballSize = 0;
-        for (int i = 0; i < n; i++)
-        {
-            if (nums[i] == 2)
-                snowballSize++;
-            else if (snowballSize != 0)
+            else if (nums[white] == 1)
+                white++;
+            else
             {
-                int t = nums[i];
-                nums[i] = 2;
-                nums[i - snowballSize] = t;
+                swap(nums[white], nums[blue]);
+                blue--;
             }
         }
     }

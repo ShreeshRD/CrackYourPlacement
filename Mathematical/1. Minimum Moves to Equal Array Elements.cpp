@@ -4,37 +4,17 @@ using namespace std;
 class Solution
 {
 public:
-    bool isValid(string s)
+    int minMoves2(vector<int> &nums)
     {
-        stack<char> stack;
-
-        for (char &c : s)
+        int l = 0, r = nums.size() - 1;
+        sort(nums.begin(), nums.end());
+        int ans = 0;
+        while (l < r)
         {
-            switch (c)
-            {
-            case '(':
-            case '{':
-            case '[':
-                stack.push(c);
-                break;
-            case ')':
-                if (stack.empty() || stack.top() != '(')
-                    return false;
-                stack.pop();
-                break;
-            case '}':
-                if (stack.empty() || stack.top() != '{')
-                    return false;
-                stack.pop();
-                break;
-            case ']':
-                if (stack.empty() || stack.top() != '[')
-                    return false;
-                stack.pop();
-                break;
-            }
+            ans += nums[r] - nums[l];
+            l++;
+            r--;
         }
-
-        return stack.empty();
+        return ans;
     }
 };
